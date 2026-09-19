@@ -1,0 +1,23 @@
+{
+  "imagePath": "image-targets/PhungHieu_luminance.png",
+  "metadata": null,
+  "name": "PhungHieu",
+  "type": "PLANAR",
+  "properties": {
+    "left": 0,
+    "top": 48,
+    "width": 1429,
+    "height": 1905,
+    "isRotated": true,
+    "originalWidth": 1429,
+    "originalHeight": 2000
+  },
+  "resources": {
+    "originalImage": "PhungHieu_original.png",
+    "croppedImage": "PhungHieu_cropped.png",
+    "thumbnailImage": "PhungHieu_thumbnail.png",
+    "luminanceImage": "PhungHieu_luminance.png"
+  },
+  "created": 1789821905604,
+  "updated": 1789821905604
+}
