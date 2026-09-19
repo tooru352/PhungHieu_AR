@@ -23,7 +23,7 @@
     /* YouTube Popup Styles */
     #youtube-modal {
       display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); z-index: 100000; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.9); z-index: 100000; align-items: center; justify-content: center;
     }
     #youtube-modal.active { display: flex; }
     .youtube-container { position: relative; width: 90%; max-width: 800px; aspect-ratio: 16 / 9; }
@@ -35,6 +35,15 @@
       position: absolute; top: -45px; right: 0; color: white; font-size: 36px;
       cursor: pointer; background: none; border: none; padding: 0; line-height: 1;
     }
+
+    /* Open Video Button */
+    #open-video-btn {
+      display: none; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      background: #ff0000; color: white; padding: 12px 24px; border-radius: 999px;
+      font-size: 16px; font-weight: bold; border: none; box-shadow: 0 4px 15px rgba(255,0,0,0.4);
+      z-index: 99999; cursor: pointer;
+    }
+    #open-video-btn.visible { display: block; }
   </style>
 
   <script crossorigin="anonymous" src="./external/scripts/8frame-1.5.0.min.js"></script>
@@ -49,15 +58,28 @@
         const modal = document.getElementById('youtube-modal');
         const iframe = document.getElementById('youtube-iframe');
         const closeBtn = document.getElementById('close-youtube');
+        const openBtn = document.getElementById('open-video-btn');
         const videoUrl = 'https://www.youtube.com/embed/uBd3Us7C_nU?autoplay=1';
 
+        // Show button when image is found
         this.el.addEventListener('xrimagefound', () => {
+          openBtn.classList.add('visible');
+        });
+
+        // Hide button when image is lost
+        this.el.addEventListener('xrimagelost', () => {
+          openBtn.classList.remove('visible');
+        });
+        
+        // Open modal when button is clicked
+        openBtn.addEventListener('click', () => {
           if (!modal.classList.contains('active')) {
             iframe.src = videoUrl;
             modal.classList.add('active');
           }
         });
-        
+
+        // Close modal
         closeBtn.addEventListener('click', () => {
           modal.classList.remove('active');
           iframe.src = ''; // Clear src to stop video playback
@@ -70,6 +92,9 @@
   <script src="bundle.js"></script>
   
   <div class="ui-hint"><strong>PhungHieu AR</strong> · Quét hình ảnh để xem trải nghiệm</div>
+
+  <!-- Open Video Button -->
+  <button id="open-video-btn">▶ Xem Video YouTube</button>
 
   <!-- YouTube Modal -->
   <div id="youtube-modal">
